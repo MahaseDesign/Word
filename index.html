@@ -332,9 +332,12 @@ const DIFFICULTY = {
 };
 
 // ── JSONBIN ─────────────────────────────────────────────────────
-let BIN_ID  = localStorage.getItem("ws_bin_id")  || "";
-let API_KEY = localStorage.getItem("ws_api_key") || "";
-let useCloud = !!(BIN_ID && API_KEY);
+// 👇 TEACHER: paste your JSONBin credentials here once, then share the file/link
+let BIN_ID  = "69f7a3ac856a682189a0ea74";
+let API_KEY = "$2a$10$hJOuTgFo6.nu44x8ldlrC.QnZAw2r4P6UUgCzOQnMLCxkxSQv9/ta";
+let useCloud = !!(BIN_ID && API_KEY &&
+                  BIN_ID  !== "69f7a3ac856a682189a0ea74" &&
+                  API_KEY !== "$2a$10$hJOuTgFo6.nu44x8ldlrC.QnZAw2r4P6UUgCzOQnMLCxkxSQv9/ta");
 
 function setSyncStatus(type, msg) {
   const el = document.getElementById("syncStatus");
@@ -757,7 +760,6 @@ document.getElementById("setupSaveBtn").addEventListener("click",async()=>{
       await fetch(`${JSONBIN_BASE}/${bid}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":key},body:JSON.stringify({scores:[]})});
     }
     BIN_ID=bid; API_KEY=key; useCloud=true;
-    localStorage.setItem("ws_bin_id",bid); localStorage.setItem("ws_api_key",key);
     document.getElementById("setupMsg").textContent="✅ Connected!";
     document.getElementById("setupMsg").className="modal-msg";
     setTimeout(()=>{ hideOverlay("setupOverlay"); loadScores(); },900);
@@ -837,7 +839,7 @@ document.addEventListener("touchstart",()=>{
 },{once:true});
 
 // ── BOOT ────────────────────────────────────────────────────────
-if(!BIN_ID||!API_KEY){ showOverlay("setupOverlay"); } else { loadScores(); }
+loadScores();
 startGame("easy");
 </script>
 </body>
