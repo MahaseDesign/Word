@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>🔍 CS Word Search | Code Hunter</title>
+  <style>
+    * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
+      font-family: 'Segoe UI', 'Fira Code', 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 12px;
+    }
+
+    .game-container {
+      max-width: 1300px;
+      width: 100%;
+      background: rgba(10, 20, 28, 0.85);
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+      padding: 1rem;
+    }
+
+    .game-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #2ecc71;
+      padding-bottom: 12px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.1rem, 4vw, 1.8rem);
+      background: linear-gradient(135deg, #a0e9ff, #2ecc71);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+    .header-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .level-buttons { display: flex; gap: 8px; }
+    .level-btn {
+      background: #1e2f3a;
+      border: none;
+      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-family: inherit;
+      font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+      cursor: pointer;
+      transition: 0.2s;
+      color: #ccdeee;
+      box-shadow: 0 2px 4px black;
+      touch-action: manipulation;
+    }
+    .level-btn.active { background: #2ecc71; color: #0a1c1f; box-shadow: 0 0 12px #2ecc71; }
+    .timer-panel {
+      background: #071217;
+      padding: 6px 14px;
+      border-radius: 60px;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      font-weight: bold;
+      font-family: monospace;
+      letter-spacing: 3px;
+      color: #2ecc71;
+      text-shadow: 0 0 5px #2ecc71;
+    }
+    .reset-pin-btn {
+      background: #c44536;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-weight: bold;
+      font-family: monospace;
+      cursor: pointer;
+      font-size: 0.85rem;
+      touch-action: manipulation;
+    }
+    .sound-btn {
+      background: #1e3a47;
+      border: none;
+      color: #a0e9ff;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    /* MAIN LAYOUT — stacks on mobile */
+    .game-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    @media (min-width: 700px) {
+      .game-layout { flex-direction: row; align-items: flex-start; }
+      .board-section { flex: 3; }
+      .side-panel { flex: 1.2; min-width: 180px; }
+      .leaderboard-area { flex: 1.5; min-width: 200px; }
+    }
+
+    .board-section {
+      background: #07161f;
+      border-radius: 1.5rem;
+      padding: 0.8rem;
+      box-shadow: inset 0 0 8px #00000055, 0 8px 18px black;
+    }
+    .side-panel {
+      background: #10222b;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      box-shadow: 0 8px 18px black;
+    }
+    .leaderboard-area {
+      background: #0c1920;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      box-shadow: 0 8px 18px black;
+    }
+
+    /* GRID */
+    .wordsearch-grid {
+      display: grid;
+      justify-content: center;
+      gap: 4px;
+      background: #031016;
+      padding: 10px;
+      border-radius: 1.2rem;
+      touch-action: none;
+    }
+    .grid-cell {
+      background: #1e3a47;
+      width: var(--cell-size, 40px);
+      height: var(--cell-size, 40px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: var(--cell-font, 1.15rem);
+      font-family: 'Fira Code', monospace;
+      border-radius: 10px;
+      transition: background 0.07s, transform 0.07s;
+      color: #eaf4f5;
+      cursor: pointer;
+      box-shadow: inset 0 -2px 0 #0f2c36, 0 2px 4px rgba(0,0,0,0.4);
+      touch-action: manipulation;
+    }
+    .grid-cell.selected {
+      background: #f1c40f;
+      color: #1e2f2f;
+      transform: scale(0.93);
+      box-shadow: 0 0 10px gold;
+    }
+    .grid-cell.found {
+      background: #2e7d5e;
+      color: #b0ffd8;
+      opacity: 0.85;
+      cursor: default;
+    }
+    .grid-cell.highlight {
+      background: #e67e22aa;
+    }
+
+    /* Word bank */
+    .word-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .word-item {
+      background: #08212b;
+      padding: 7px 10px;
+      border-radius: 2rem;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 1px;
+      font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+      font-family: monospace;
+      border-left: 5px solid #2ecc71;
+      color: #c8e8f0;
+    }
+    .word-item.found-word {
+      background: #2e5a48;
+      text-decoration: line-through;
+      opacity: 0.6;
+      border-left-color: #aaa;
+    }
+    .status-text {
+      background: #00000077;
+      border-radius: 2rem;
+      padding: 7px 10px;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #c8e8f0;
+    }
+    button.small-btn {
+      background: #2c5f6e;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      touch-action: manipulation;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+    th, td { padding: 5px 3px; border-bottom: 1px solid #2ecc7155; text-align: left; color: #c6e9f0; }
+    h3 { margin: 0 0 8px 0; color: #f0c674; font-size: 1rem; }
+
+    /* Confetti canvas */
+    #confettiCanvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<canvas id="confettiCanvas"></canvas>
+
+<!-- Win Overlay -->
+<div id="winOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.78); z-index:1000; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:linear-gradient(145deg,#0d2233,#0a1c1f); border:2px solid #2ecc71; border-radius:2rem; padding:2rem; max-width:380px; width:100%; text-align:center; box-shadow:0 0 40px #2ecc7155;">
+    <div style="font-size:3rem; margin-bottom:8px;">🏆</div>
+    <h2 style="color:#2ecc71; margin:0 0 6px 0; font-size:1.6rem;">ALL WORDS FOUND!</h2>
+    <div id="winTimeDisplay" style="font-size:2rem; font-family:monospace; color:#f1c40f; letter-spacing:3px; margin:10px 0;"></div>
+    <p style="color:#a0c8d8; margin:0 0 14px 0; font-size:0.9rem;">Enter your name for the leaderboard:</p>
+    <input id="winNameInput" type="text" maxlength="10" placeholder="YOUR NAME"
+      style="background:#1a3a47; border:2px solid #2ecc71; border-radius:50px; padding:10px 16px; color:white; font-size:1.1rem; font-family:monospace; text-align:center; width:100%; margin-bottom:14px; outline:none; letter-spacing:2px;">
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <button id="winSaveBtn" style="background:#2ecc71; color:#0a1c1f; border:none; border-radius:50px; padding:10px 22px; font-weight:bold; font-size:1rem; cursor:pointer; font-family:monospace; touch-action:manipulation;">💾 SAVE SCORE</button>
+      <button id="winPlayAgainBtn" style="background:#1e3a47; color:#a0e9ff; border:2px solid #a0e9ff; border-radius:50px; padding:10px 22px; font-weight:bold; font-size:1rem; cursor:pointer; font-family:monospace; touch-action:manipulation;">🔄 PLAY AGAIN</button>
+    </div>
+    <div id="winSavedMsg" style="color:#2ecc71; margin-top:12px; font-size:0.85rem; min-height:1.2em;"></div>
+  </div>
+</div>
+
+<div class="game-container">
+  <div class="game-header">
+    <h1>⚡ CS WORDSEARCH ⚡</h1>
+    <div class="header-right">
+      <div class="level-buttons">
+        <button data-level="easy" class="level-btn active">🌱 EASY</button>
+        <button data-level="medium" class="level-btn">⚙️ MED</button>
+        <button data-level="hard" class="level-btn">🔥 HARD</button>
+      </div>
+      <div class="timer-panel">⏱️ <span id="timerDisplay">00:00</span></div>
+      <button id="soundToggleBtn" class="sound-btn" title="Toggle sound">🔊</button>
+      <button id="pinResetGameBtn" class="reset-pin-btn">🔐 RESET</button>
+    </div>
+  </div>
+
+  <div class="game-layout">
+    <!-- Board -->
+    <div class="board-section">
+      <div id="gridContainer" style="overflow-x:auto; display:flex; justify-content:center;"></div>
+      <div class="status-text" id="gameStatusMsg">✨ Tap first letter, then last letter of a word ✨</div>
+      <button id="clearSelectionBtn" class="small-btn">🗑️ Clear selection</button>
+    </div>
+
+    <!-- Word Bank -->
+    <div class="side-panel">
+      <h3>📚 WORD BANK</h3>
+      <div id="wordListContainer" class="word-list">Loading...</div>
+      <div id="progressInfo" style="margin-top:10px; text-align:center; font-weight:bold; color:#2ecc71;">🎯 0 / 0</div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard-area">
+      <h3>🏆 LEADERBOARD</h3>
+      <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
+        <select id="lbLevelSelect" style="background:#1f3e48; color:white; border-radius:20px; padding:4px 8px; border:none; font-size:0.85rem;">
+          <option value="easy">EASY</option>
+          <option value="medium">MEDIUM</option>
+          <option value="hard">HARD</option>
+        </select>
+        <button id="resetLeaderboardPinBtn" style="background:#b34e4e; border:none; border-radius:20px; padding:4px 10px; color:white; font-size:0.8rem; cursor:pointer; touch-action:manipulation;">🔐 Reset</button>
+      </div>
+      <div id="leaderboardTable">-- no scores --</div>
+      <div style="margin-top:8px; font-size:10px; text-align:center; color:#6a9aaa;">✔️ Find all words to save your time!</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// =================== CONFIG ===================
+const ADMIN_PIN = "1234";
+
+const WORD_POOL = {
+  easy:   ["ARRAY","STACK","QUEUE","LOOP","CLASS","BYTE","CACHE","DATA","CODE","INPUT",
+           "FILE","FONT","PIXEL","MOUSE","PRINT","SHELL","ICON","VIRUS","WIFI","DEBUG",
+           "DISK","CHIP","BOOT","PORT","USER","LINK","TEXT","GRID","SCAN","COPY"],
+  medium: ["FUNCTION","VARIABLE","COMPILER","ITERATION","POINTER","RECURSION","BINARY","OBJECT","STRING","OUTPUT",
+           "BOOLEAN","INTEGER","NETWORK","BROWSER","KEYBOARD","REGISTER","HARDWARE","PROTOCOL","COMMAND","PROCESS",
+           "FIREWALL","STORAGE","PROGRAM","RUNTIME","TERMINAL","LIBRARY","PACKAGE","MACHINE","BOOLEAN","PIPELINE"],
+  hard:   ["ALGORITHM","DATABASE","PROGRAMMING","SOFTWARE","OPERATING","THREADING","RECURSION","COMPILER","ABSTRACT","INTERFACE",
+           "ENCRYPTION","INHERITANCE","POLYMORPHISM","BANDWIDTH","SUBROUTINE","PSEUDOCODE","REPOSITORY","FRAMEWORK","HEXADECIMAL","DECOMPOSITION",
+           "CONDITIONAL","ARITHMETIC","ALLOCATION","INTERPRETER","ABSTRACTION","STYLESHEET","EXECUTABLE","VALIDATION","DECLARATION","COMPRESSION"]
+};
+const DIFFICULTY = {
+  easy:   { rows: 8,  cols: 8,  wordCount: 5 },
+  medium: { rows: 10, cols: 10, wordCount: 7 },
+  hard:   { rows: 12, cols: 12, wordCount: 8 }
+};
+
+// =================== SOUND ENGINE ===================
+let audioCtx = null;
+let soundEnabled = true;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(freq, type, duration, vol = 0.3, delay = 0) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+    gain.gain.setValueAtTime(vol, ctx.currentTime + delay);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+    osc.start(ctx.currentTime + delay);
+    osc.stop(ctx.currentTime + delay + duration + 0.05);
+  } catch(e) {}
+}
+
+function soundFoundWord() {
+  // happy arpeggio
+  playTone(523, 'sine', 0.12, 0.25, 0);
+  playTone(659, 'sine', 0.12, 0.25, 0.1);
+  playTone(784, 'sine', 0.18, 0.3,  0.2);
+}
+
+function soundError() {
+  playTone(200, 'sawtooth', 0.15, 0.2, 0);
+  playTone(150, 'sawtooth', 0.12, 0.2, 0.1);
+}
+
+function soundWin() {
+  const notes = [523,659,784,1047,784,1047,1319];
+  notes.forEach((f,i) => playTone(f, 'sine', 0.18, 0.3, i * 0.12));
+}
+
+function soundTick() {
+  playTone(880, 'sine', 0.04, 0.1, 0);
+}
+
+// =================== LEADERBOARD ===================
+let leaderboard = { easy:[], medium:[], hard:[] };
+
+function loadLeaderboard() {
+  try {
+    const s = localStorage.getItem("cs_wordsearch_lb2");
+    if (s) {
+      leaderboard = JSON.parse(s);
+      ["easy","medium","hard"].forEach(k => { if(!leaderboard[k]) leaderboard[k]=[]; });
+    }
+  } catch(e) {}
+  renderLeaderboard();
+}
+
+function saveLeaderboard() {
+  localStorage.setItem("cs_wordsearch_lb2", JSON.stringify(leaderboard));
+  renderLeaderboard();
+}
+
+function addScore(level, name, timeSec) {
+  if (!name || !name.trim()) name = "ANON";
+  leaderboard[level].push({ name: name.toUpperCase().slice(0,10), time: timeSec, date: new Date().toLocaleDateString() });
+  leaderboard[level].sort((a,b) => a.time - b.time);
+  leaderboard[level] = leaderboard[level].slice(0,6);
+  saveLeaderboard();
+}
+
+function renderLeaderboard() {
+  const level = document.getElementById("lbLevelSelect").value;
+  const scores = leaderboard[level] || [];
+  const div = document.getElementById("leaderboardTable");
+  if (!scores.length) { div.innerHTML = '<div style="padding:8px;text-align:center;color:#6a9aaa;">No records yet</div>'; return; }
+  let html = '<table><tr><th>#</th><th>Player</th><th>Time</th><th>Date</th></tr>';
+  scores.forEach((sc,i) => {
+    const m = Math.floor(sc.time/60), s = sc.time%60;
+    html += `<tr><td>${i+1}</td><td>${sc.name}</td><td>${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}</td><td>${sc.date}</td></tr>`;
+  });
+  html += '</table>';
+  div.innerHTML = html;
+}
+
+// =================== GAME STATE ===================
+let currentLevel = "easy";
+let grid = [];
+let rows, cols;
+let currentWords = [];
+let gameActive = false;
+let timerSeconds = 0;
+let timerInterval = null;
+let gameCompletedFlag = false;
+let firstSelectedCell = null;
+let usedWords = { easy: new Set(), medium: new Set(), hard: new Set() };
+
+// =================== TIMER ===================
+function startTimer() {
+  stopTimer();
+  timerInterval = setInterval(() => {
+    if (!gameCompletedFlag && gameActive) {
+      timerSeconds++;
+      updateTimerDisplay();
+    }
+  }, 1000);
+}
+function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds/60), s = timerSeconds%60;
+  document.getElementById("timerDisplay").textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// =================== GRID RENDERING ===================
+function calcCellSize() {
+  const vw = window.innerWidth;
+  // Available width for the board (roughly 65% on desktop, 95% on mobile)
+  const available = vw < 700 ? vw - 48 : Math.min(vw * 0.55, 700);
+  const gap = 4;
+  const padding = 20;
+  const cellPx = Math.floor((available - padding * 2 - gap * (cols - 1)) / cols);
+  return Math.max(28, Math.min(cellPx, 56));
+}
+
+function renderGrid() {
+  if (!grid.length) return;
+  const container = document.getElementById("gridContainer");
+  container.innerHTML = "";
+
+  const cellSize = calcCellSize();
+  const fontSize = Math.max(11, Math.floor(cellSize * 0.45));
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "wordsearch-grid";
+  wrapper.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
+  wrapper.style.setProperty('--cell-size', cellSize + 'px');
+  wrapper.style.setProperty('--cell-font', fontSize + 'px');
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const cell = document.createElement("div");
+      cell.className = "grid-cell";
+      cell.style.width = cellSize + 'px';
+      cell.style.height = cellSize + 'px';
+      cell.style.fontSize = fontSize + 'px';
+      cell.style.borderRadius = Math.max(6, cellSize * 0.22) + 'px';
+      cell.textContent = grid[i][j];
+      cell.dataset.row = i;
+      cell.dataset.col = j;
+
+      // Found?
+      for (const w of currentWords) {
+        if (w.found && w.posSet && w.posSet.has(`${i},${j}`)) {
+          cell.classList.add("found");
+          break;
+        }
+      }
+      // Selected?
+      if (firstSelectedCell && firstSelectedCell.row === i && firstSelectedCell.col === j) {
+        cell.classList.add("selected");
+      }
+
+      cell.addEventListener("click", () => onCellClick(i, j));
+      // Touch support
+      cell.addEventListener("touchend", (e) => { e.preventDefault(); onCellClick(i, j); }, { passive: false });
+
+      wrapper.appendChild(cell);
+    }
+  }
+  container.appendChild(wrapper);
+}
+
+// =================== WORD BANK UI ===================
+function updateWordBankUI() {
+  const div = document.getElementById("wordListContainer");
+  div.innerHTML = "";
+  let found = 0;
+  currentWords.forEach(w => {
+    if (w.found) found++;
+    const el = document.createElement("div");
+    el.className = "word-item" + (w.found ? " found-word" : "");
+    el.textContent = w.text;
+    div.appendChild(el);
+  });
+  document.getElementById("progressInfo").textContent = `🎯 ${found} / ${currentWords.length}`;
+
+  if (found === currentWords.length && !gameCompletedFlag && currentWords.length > 0) {
+    gameCompletedFlag = true;
+    gameActive = false;
+    stopTimer();
+    soundWin();
+    launchConfetti();
+    const finalTime = timerSeconds;
+    document.getElementById("gameStatusMsg").textContent = "🎉 ALL FOUND! Amazing!";
+    setTimeout(() => showWinOverlay(finalTime), 700);
+  }
+}
+
+function formatTime(sec) {
+  return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;
+}
+
+// =================== WIN OVERLAY ===================
+let _winFinalTime = 0;
+
+function showWinOverlay(finalTime) {
+  _winFinalTime = finalTime;
+  document.getElementById("winTimeDisplay").textContent = "⏱ " + formatTime(finalTime);
+  document.getElementById("winNameInput").value = "";
+  document.getElementById("winSavedMsg").textContent = "";
+  const saveBtn = document.getElementById("winSaveBtn");
+  saveBtn.disabled = false;
+  saveBtn.style.opacity = "1";
+  const overlay = document.getElementById("winOverlay");
+  overlay.style.display = "flex";
+  setTimeout(() => document.getElementById("winNameInput").focus(), 100);
+}
+
+function hideWinOverlay() {
+  document.getElementById("winOverlay").style.display = "none";
+}
+
+document.getElementById("winSaveBtn").addEventListener("click", () => {
+  const name = document.getElementById("winNameInput").value.trim() || "ANON";
+  addScore(currentLevel, name, _winFinalTime);
+  document.getElementById("winSavedMsg").textContent = "✅ Score saved to leaderboard!";
+  document.getElementById("winSaveBtn").disabled = true;
+  document.getElementById("winSaveBtn").style.opacity = "0.5";
+});
+
+document.getElementById("winPlayAgainBtn").addEventListener("click", () => {
+  hideWinOverlay();
+  startGame(currentLevel);
+});
+
+// =================== CELL CLICK / WORD CHECK ===================
+function onCellClick(row, col) {
+  if (gameCompletedFlag || !gameActive) return;
+
+  // resume audio context on first interaction (mobile requirement)
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+
+  soundTick();
+
+  if (!firstSelectedCell) {
+    firstSelectedCell = { row, col };
+    renderGrid();
+    document.getElementById("gameStatusMsg").textContent = "🔍 Now tap the LAST letter...";
+  } else {
+    const start = firstSelectedCell;
+    const end = { row, col };
+    if (start.row === end.row && start.col === end.col) {
+      clearSelection();
+      return;
+    }
+    const result = trySelectWord(start, end);
+    if (!result) {
+      soundError();
+      document.getElementById("gameStatusMsg").textContent = "❌ Not a word — try again!";
+      clearSelection();
+    }
+  }
+}
+
+function clearSelection() {
+  firstSelectedCell = null;
+  renderGrid();
+  if (!gameCompletedFlag) document.getElementById("gameStatusMsg").textContent = "✨ Tap first letter, then last letter ✨";
+}
+
+function trySelectWord(start, end) {
+  const dr = Math.sign(end.row - start.row);
+  const dc = Math.sign(end.col - start.col);
+  if (dr === 0 && dc === 0) return false;
+  if (dr !== 0 && dc !== 0 && Math.abs(end.row - start.row) !== Math.abs(end.col - start.col)) return false;
+
+  const steps = Math.max(Math.abs(end.row - start.row), Math.abs(end.col - start.col));
+  const letters = [], positions = [];
+  for (let s = 0; s <= steps; s++) {
+    const r = start.row + dr * s, c = start.col + dc * s;
+    if (r < 0 || r >= rows || c < 0 || c >= cols) return false;
+    letters.push(grid[r][c]);
+    positions.push({ row: r, col: c });
+  }
+
+  const word = letters.join('');
+  const rev  = [...letters].reverse().join('');
+
+  const hit = currentWords.find(w => !w.found && (w.text === word || w.text === rev));
+  if (hit) {
+    hit.found = true;
+    hit.posSet = new Set(positions.map(p => `${p.row},${p.col}`));
+    soundFoundWord();
+    clearSelection();
+    updateWordBankUI();
+    renderGrid();
+    document.getElementById("gameStatusMsg").textContent = `✔️ "${hit.text}" found!`;
+    return true;
+  }
+  return false;
+}
+
+// =================== BOARD GENERATION ===================
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function canPlace(board, word, r, c, dr, dc) {
+  for (let i = 0; i < word.length; i++) {
+    const nr = r + dr * i, nc = c + dc * i;
+    if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) return false;
+    if (board[nr][nc] !== null && board[nr][nc] !== word[i]) return false;
+  }
+  return true;
+}
+
+function placeWord(board, word, r, c, dr, dc) {
+  const pos = [];
+  for (let i = 0; i < word.length; i++) {
+    board[r + dr * i][c + dc * i] = word[i];
+    pos.push({ row: r + dr * i, col: c + dc * i });
+  }
+  return pos;
+}
+
+function generateBoard(wordList) {
+  const DIRS = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  for (let attempt = 0; attempt < 40; attempt++) {
+    const board = Array.from({ length: rows }, () => Array(cols).fill(null));
+    let allPlaced = true;
+
+    for (const word of shuffle([...wordList])) {
+      let placed = false;
+      for (let t = 0; t < 600 && !placed; t++) {
+        const [dr, dc] = DIRS[Math.floor(Math.random() * DIRS.length)];
+        const r = Math.floor(Math.random() * rows);
+        const c = Math.floor(Math.random() * cols);
+        if (canPlace(board, word, r, c, dr, dc)) {
+          placeWord(board, word, r, c, dr, dc);
+          placed = true;
+        }
+      }
+      if (!placed) { allPlaced = false; break; }
+    }
+
+    if (allPlaced) {
+      // fill nulls
+      for (let i = 0; i < rows; i++)
+        for (let j = 0; j < cols; j++)
+          if (board[i][j] === null) board[i][j] = ALPHABET[Math.floor(Math.random() * 26)];
+      return board;
+    }
+  }
+  return null;
+}
+
+// =================== NEW GAME ===================
+function startGame(level) {
+  currentLevel = level;
+  const cfg = DIFFICULTY[level];
+  rows = cfg.rows;
+  cols = cfg.cols;
+
+  const pool = WORD_POOL[level];
+  // Pick from unused words; reset if pool exhausted
+  let available = pool.filter(w => !usedWords[level].has(w));
+  if (available.length < cfg.wordCount) {
+    usedWords[level].clear();
+    available = [...pool];
+  }
+  const chosen = shuffle([...available]).slice(0, cfg.wordCount);
+  chosen.forEach(w => usedWords[level].add(w));
+
+  const board = generateBoard(chosen);
+  if (!board) { alert("Board generation failed — try again!"); return; }
+
+  grid = board;
+  currentWords = chosen.map(t => ({ text: t, found: false, posSet: null }));
+  gameCompletedFlag = false;
+  gameActive = true;
+  firstSelectedCell = null;
+  timerSeconds = 0;
+  updateTimerDisplay();
+  startTimer();
+
+  renderGrid();
+  updateWordBankUI();
+  document.getElementById("gameStatusMsg").textContent = "✨ Tap first letter, then last letter ✨";
+}
+
+// =================== CONFETTI ===================
+function launchConfetti() {
+  const canvas = document.getElementById("confettiCanvas");
+  canvas.style.display = "block";
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const pieces = Array.from({length:120}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -canvas.height,
+    w: Math.random() * 10 + 5,
+    h: Math.random() * 6 + 3,
+    color: `hsl(${Math.random()*360},80%,60%)`,
+    vx: (Math.random()-0.5) * 3,
+    vy: Math.random() * 4 + 2,
+    angle: Math.random() * Math.PI * 2,
+    spin: (Math.random()-0.5) * 0.2
+  }));
+
+  let frames = 0;
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+      p.x += p.vx; p.y += p.vy; p.angle += p.spin;
+    });
+    frames++;
+    if (frames < 180) requestAnimationFrame(draw);
+    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display="none"; }
+  }
+  draw();
+}
+
+// =================== PIN MODAL ===================
+function promptPin(onSuccess) {
+  const pin = prompt("Enter admin PIN:");
+  if (pin === ADMIN_PIN) onSuccess();
+  else if (pin !== null) alert("❌ Wrong PIN.");
+}
+
+// =================== INIT ===================
+document.querySelectorAll(".level-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".level-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    startGame(btn.dataset.level);
+  });
+  btn.addEventListener("touchend", e => { e.preventDefault(); btn.click(); }, { passive: false });
+});
+
+document.getElementById("clearSelectionBtn").addEventListener("click", clearSelection);
+document.getElementById("clearSelectionBtn").addEventListener("touchend", e => { e.preventDefault(); clearSelection(); }, { passive: false });
+
+document.getElementById("pinResetGameBtn").addEventListener("click", () => {
+  promptPin(() => startGame(currentLevel));
+});
+
+document.getElementById("lbLevelSelect").addEventListener("change", renderLeaderboard);
+
+document.getElementById("resetLeaderboardPinBtn").addEventListener("click", () => {
+  promptPin(() => {
+    leaderboard[document.getElementById("lbLevelSelect").value] = [];
+    saveLeaderboard();
+    alert("Leaderboard cleared.");
+  });
+});
+
+document.getElementById("soundToggleBtn").addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+  document.getElementById("soundToggleBtn").textContent = soundEnabled ? "🔊" : "🔇";
+  if (soundEnabled && audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+});
+
+window.addEventListener("resize", () => { if (grid.length) renderGrid(); });
+
+// Unlock audio context on first touch (iOS requirement)
+document.addEventListener("touchstart", () => {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}, { once: true });
+
+loadLeaderboard();
+startGame("easy");
+</script>
+</body>
+</html>
