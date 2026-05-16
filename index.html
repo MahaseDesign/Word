@@ -27,287 +27,292 @@
     }
 
     .game-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      border-bottom: 2px solid #2ecc71;
-      padding-bottom: 12px;
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; gap: 10px; margin-bottom: 16px;
+      border-bottom: 2px solid #2ecc71; padding-bottom: 12px;
     }
     h1 {
-      margin: 0;
-      font-size: clamp(1.1rem, 4vw, 1.8rem);
+      margin: 0; font-size: clamp(1.1rem, 4vw, 1.8rem);
       background: linear-gradient(135deg, #a0e9ff, #2ecc71);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 1px;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; letter-spacing: 1px;
     }
-    .header-right {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
+    .header-right { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     .level-buttons { display: flex; gap: 8px; }
     .level-btn {
-      background: #1e2f3a;
-      border: none;
-      font-weight: bold;
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-family: inherit;
-      font-size: clamp(0.75rem, 2.5vw, 0.95rem);
-      cursor: pointer;
-      transition: 0.2s;
-      color: #ccdeee;
-      box-shadow: 0 2px 4px black;
+      background: #1e2f3a; border: none; font-weight: bold;
+      padding: 6px 14px; border-radius: 40px; font-family: inherit;
+      font-size: clamp(0.75rem, 2.5vw, 0.95rem); cursor: pointer;
+      transition: 0.2s; color: #ccdeee; box-shadow: 0 2px 4px black;
       touch-action: manipulation;
     }
     .level-btn.active { background: #2ecc71; color: #0a1c1f; box-shadow: 0 0 12px #2ecc71; }
     .timer-panel {
-      background: #071217;
-      padding: 6px 14px;
-      border-radius: 60px;
-      font-size: clamp(1rem, 4vw, 1.5rem);
-      font-weight: bold;
-      font-family: monospace;
-      letter-spacing: 3px;
-      color: #2ecc71;
-      text-shadow: 0 0 5px #2ecc71;
+      background: #071217; padding: 6px 14px; border-radius: 60px;
+      font-size: clamp(1rem, 4vw, 1.5rem); font-weight: bold;
+      font-family: monospace; letter-spacing: 3px;
+      color: #2ecc71; text-shadow: 0 0 5px #2ecc71;
     }
-    .reset-pin-btn {
-      background: #c44536;
-      border: none;
-      color: white;
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-weight: bold;
-      font-family: monospace;
-      cursor: pointer;
-      font-size: 0.85rem;
-      touch-action: manipulation;
-    }
-    .sound-btn {
-      background: #1e3a47;
-      border: none;
-      color: #a0e9ff;
-      padding: 6px 12px;
-      border-radius: 40px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      touch-action: manipulation;
+    .icon-btn {
+      background: #1e3a47; border: none; color: #a0e9ff;
+      padding: 6px 12px; border-radius: 40px; font-size: 1.05rem;
+      cursor: pointer; touch-action: manipulation;
     }
 
-    /* MAIN LAYOUT — stacks on mobile */
-    .game-layout {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .game-layout { display: flex; flex-direction: column; gap: 16px; }
     @media (min-width: 700px) {
       .game-layout { flex-direction: row; align-items: flex-start; }
       .board-section { flex: 3; }
       .side-panel { flex: 1.2; min-width: 180px; }
-      .leaderboard-area { flex: 1.5; min-width: 200px; }
+      .league-area { flex: 1.9; min-width: 230px; }
     }
 
     .board-section {
-      background: #07161f;
-      border-radius: 1.5rem;
-      padding: 0.8rem;
-      box-shadow: inset 0 0 8px #00000055, 0 8px 18px black;
+      background: #07161f; border-radius: 1.5rem;
+      padding: 0.8rem; box-shadow: inset 0 0 8px #00000055, 0 8px 18px black;
     }
     .side-panel {
-      background: #10222b;
-      border-radius: 1.5rem;
-      padding: 1rem;
-      box-shadow: 0 8px 18px black;
+      background: #10222b; border-radius: 1.5rem;
+      padding: 1rem; box-shadow: 0 8px 18px black;
     }
-    .leaderboard-area {
-      background: #0c1920;
-      border-radius: 1.5rem;
-      padding: 1rem;
-      box-shadow: 0 8px 18px black;
+    .league-area {
+      background: #0c1920; border-radius: 1.5rem;
+      padding: 1rem; box-shadow: 0 8px 18px black;
     }
 
-    /* GRID */
     .wordsearch-grid {
-      display: grid;
-      justify-content: center;
-      gap: 4px;
-      background: #031016;
-      padding: 10px;
-      border-radius: 1.2rem;
-      touch-action: none;
+      display: grid; justify-content: center; gap: 4px;
+      background: #031016; padding: 10px; border-radius: 1.2rem; touch-action: none;
     }
     .grid-cell {
-      background: #1e3a47;
-      width: var(--cell-size, 40px);
-      height: var(--cell-size, 40px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: var(--cell-font, 1.15rem);
+      background: #1e3a47; display: flex; align-items: center;
+      justify-content: center; font-weight: bold;
       font-family: 'Fira Code', monospace;
-      border-radius: 10px;
       transition: background 0.07s, transform 0.07s;
-      color: #eaf4f5;
-      cursor: pointer;
+      color: #eaf4f5; cursor: pointer;
       box-shadow: inset 0 -2px 0 #0f2c36, 0 2px 4px rgba(0,0,0,0.4);
       touch-action: manipulation;
     }
-    .grid-cell.selected {
-      background: #f1c40f;
-      color: #1e2f2f;
-      transform: scale(0.93);
-      box-shadow: 0 0 10px gold;
-    }
-    .grid-cell.found {
-      background: #2e7d5e;
-      color: #b0ffd8;
-      opacity: 0.85;
-      cursor: default;
-    }
-    .grid-cell.highlight {
-      background: #e67e22aa;
-    }
+    .grid-cell.selected { background: #f1c40f; color: #1e2f2f; transform: scale(0.93); box-shadow: 0 0 10px gold; }
+    .grid-cell.found { background: #2e7d5e; color: #b0ffd8; opacity: 0.85; cursor: default; }
 
-    /* Word bank */
-    .word-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 12px;
-    }
+    .word-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
     .word-item {
-      background: #08212b;
-      padding: 7px 10px;
-      border-radius: 2rem;
-      font-weight: bold;
-      text-align: center;
-      letter-spacing: 1px;
-      font-size: clamp(0.75rem, 2.5vw, 0.95rem);
-      font-family: monospace;
-      border-left: 5px solid #2ecc71;
-      color: #c8e8f0;
+      background: #08212b; padding: 7px 10px; border-radius: 2rem;
+      font-weight: bold; text-align: center; letter-spacing: 1px;
+      font-size: clamp(0.75rem, 2.5vw, 0.95rem); font-family: monospace;
+      border-left: 5px solid #2ecc71; color: #c8e8f0;
     }
-    .word-item.found-word {
-      background: #2e5a48;
-      text-decoration: line-through;
-      opacity: 0.6;
-      border-left-color: #aaa;
-    }
+    .word-item.found-word { background: #2e5a48; text-decoration: line-through; opacity: 0.6; border-left-color: #aaa; }
+
     .status-text {
-      background: #00000077;
-      border-radius: 2rem;
-      padding: 7px 10px;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: #c8e8f0;
+      background: #00000077; border-radius: 2rem; padding: 7px 10px;
+      text-align: center; font-weight: bold; margin-top: 12px;
+      font-size: 0.9rem; color: #c8e8f0;
     }
     button.small-btn {
-      background: #2c5f6e;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 30px;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 8px;
-      font-family: inherit;
-      font-size: 0.85rem;
-      touch-action: manipulation;
+      background: #2c5f6e; border: none; padding: 6px 14px;
+      border-radius: 30px; color: white; cursor: pointer;
+      font-weight: bold; margin-top: 8px; font-family: inherit;
+      font-size: 0.85rem; touch-action: manipulation;
     }
-    table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
-    th, td { padding: 5px 3px; border-bottom: 1px solid #2ecc7155; text-align: left; color: #c6e9f0; }
+
     h3 { margin: 0 0 8px 0; color: #f0c674; font-size: 1rem; }
 
-    /* Confetti canvas */
-    #confettiCanvas {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 999;
-      display: none;
+    /* League */
+    .league-tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .tab-btn {
+      background: #1a3a47; border: none; color: #7ac8e0;
+      padding: 4px 12px; border-radius: 20px; font-size: 0.78rem;
+      cursor: pointer; font-family: monospace; font-weight: bold;
+      touch-action: manipulation; transition: 0.2s;
     }
+    .tab-btn.active { background: #f0c674; color: #0a1c1f; }
+    .league-table { width: 100%; border-collapse: collapse; font-size: 0.77rem; }
+    .league-table th {
+      padding: 5px 4px; border-bottom: 2px solid #2ecc7166;
+      text-align: left; color: #f0c674; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .league-table td { padding: 5px 4px; border-bottom: 1px solid #2ecc7122; color: #c6e9f0; font-family: monospace; }
+    .league-table tr:hover td { background: #ffffff08; }
+    .rank-gold   { color: #f1c40f; font-weight: bold; }
+    .rank-silver { color: #bdc3c7; font-weight: bold; }
+    .rank-bronze { color: #e67e22; font-weight: bold; }
+    .pts-badge { background: #2ecc7122; color: #2ecc71; border-radius: 20px; padding: 2px 7px; font-size: 0.7rem; font-weight: bold; }
+    .sync-status { font-size: 0.7rem; text-align: right; margin-top: 4px; color: #5a8a9a; min-height: 1em; }
+    .sync-status.ok   { color: #2ecc71; }
+    .sync-status.err  { color: #e74c3c; }
+    .sync-status.busy { color: #f0c674; }
+
+    /* Overlays */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82); z-index: 1000;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .overlay.show { display: flex; }
+    .modal {
+      background: linear-gradient(145deg,#0d2233,#0a1c1f);
+      border: 2px solid #2ecc71; border-radius: 2rem;
+      padding: 1.8rem; max-width: 420px; width: 100%;
+      text-align: center; box-shadow: 0 0 40px #2ecc7155;
+    }
+    .modal.warn { border-color: #f0c674; }
+    .modal h2 { color: #2ecc71; margin: 0 0 6px 0; font-size: 1.5rem; }
+    .modal h2.warn { color: #f0c674; }
+    .modal p { color: #a0c8d8; margin: 0 0 12px 0; font-size: 0.87rem; line-height: 1.5; }
+    .modal input[type=text], .modal input[type=password] {
+      background: #1a3a47; border: 2px solid #2ecc71; border-radius: 50px;
+      padding: 9px 16px; color: white; font-size: 1rem; font-family: monospace;
+      text-align: center; width: 100%; margin-bottom: 10px; outline: none; letter-spacing: 1px;
+    }
+    .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+    .btn-green { background: #2ecc71; color: #0a1c1f; border: none; border-radius: 50px; padding: 9px 22px; font-weight: bold; font-size: 0.95rem; cursor: pointer; font-family: monospace; touch-action: manipulation; }
+    .btn-outline { background: transparent; color: #a0e9ff; border: 2px solid #a0e9ff; border-radius: 50px; padding: 9px 22px; font-weight: bold; font-size: 0.95rem; cursor: pointer; font-family: monospace; touch-action: manipulation; }
+    .btn-danger  { background: #c0392b; color: white; border: none; border-radius: 50px; padding: 7px 18px; font-weight: bold; font-size: 0.85rem; cursor: pointer; font-family: monospace; touch-action: manipulation; }
+    .modal-msg { min-height: 1.2em; font-size: 0.82rem; margin-top: 8px; color: #2ecc71; }
+    .modal-msg.err { color: #e74c3c; }
+
+    .setup-label { display: block; text-align: left; color: #7ac8e0; font-size: 0.77rem; margin: 8px 0 3px 6px; }
+    .setup-hint { background: #071217; border-radius: 1rem; padding: 10px 14px; font-size: 0.77rem; color: #5a8aaa; text-align: left; margin: 10px 0; line-height: 1.6; }
+    .setup-hint a { color: #a0e9ff; }
+    .setup-hint code { background: #0f2030; padding: 1px 5px; border-radius: 4px; color: #2ecc71; font-size: 0.85em; }
+
+    .admin-scroll { max-height: 250px; overflow-y: auto; margin-top: 8px; text-align: left; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 0.77rem; }
+    .admin-table th { color: #f0c674; border-bottom: 1px solid #2ecc7155; padding: 4px; text-align: left; }
+    .admin-table td { color: #c6e9f0; border-bottom: 1px solid #1a3a4755; padding: 4px; font-family: monospace; }
+    .del-btn { background: #7a1a1a; border: none; color: #ffaaaa; border-radius: 12px; padding: 2px 8px; font-size: 0.7rem; cursor: pointer; touch-action: manipulation; }
+
+    #confettiCanvas { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:999; display:none; }
   </style>
 </head>
 <body>
 <canvas id="confettiCanvas"></canvas>
 
-<!-- Win Overlay -->
-<div id="winOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.78); z-index:1000; align-items:center; justify-content:center; padding:20px;">
-  <div style="background:linear-gradient(145deg,#0d2233,#0a1c1f); border:2px solid #2ecc71; border-radius:2rem; padding:2rem; max-width:380px; width:100%; text-align:center; box-shadow:0 0 40px #2ecc7155;">
-    <div style="font-size:3rem; margin-bottom:8px;">🏆</div>
-    <h2 style="color:#2ecc71; margin:0 0 6px 0; font-size:1.6rem;">ALL WORDS FOUND!</h2>
-    <div id="winTimeDisplay" style="font-size:2rem; font-family:monospace; color:#f1c40f; letter-spacing:3px; margin:10px 0;"></div>
-    <p style="color:#a0c8d8; margin:0 0 14px 0; font-size:0.9rem;">Enter your name for the leaderboard:</p>
-    <input id="winNameInput" type="text" maxlength="10" placeholder="YOUR NAME"
-      style="background:#1a3a47; border:2px solid #2ecc71; border-radius:50px; padding:10px 16px; color:white; font-size:1.1rem; font-family:monospace; text-align:center; width:100%; margin-bottom:14px; outline:none; letter-spacing:2px;">
-    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-      <button id="winSaveBtn" style="background:#2ecc71; color:#0a1c1f; border:none; border-radius:50px; padding:10px 22px; font-weight:bold; font-size:1rem; cursor:pointer; font-family:monospace; touch-action:manipulation;">💾 SAVE SCORE</button>
-      <button id="winPlayAgainBtn" style="background:#1e3a47; color:#a0e9ff; border:2px solid #a0e9ff; border-radius:50px; padding:10px 22px; font-weight:bold; font-size:1rem; cursor:pointer; font-family:monospace; touch-action:manipulation;">🔄 PLAY AGAIN</button>
+<!-- WIN OVERLAY -->
+<div id="winOverlay" class="overlay">
+  <div class="modal">
+    <div style="font-size:2.5rem;margin-bottom:6px">🏆</div>
+    <h2>ALL WORDS FOUND!</h2>
+    <div id="winTimeDisplay" style="font-size:2rem;font-family:monospace;color:#f1c40f;letter-spacing:3px;margin:8px 0"></div>
+    <p>Enter your name to save to the league:</p>
+    <input id="winNameInput" type="text" maxlength="20" placeholder="YOUR NAME">
+    <div class="btn-row">
+      <button id="winSaveBtn" class="btn-green">💾 SAVE SCORE</button>
+      <button id="winPlayAgainBtn" class="btn-outline">🔄 PLAY AGAIN</button>
     </div>
-    <div id="winSavedMsg" style="color:#2ecc71; margin-top:12px; font-size:0.85rem; min-height:1.2em;"></div>
+    <div id="winMsg" class="modal-msg"></div>
   </div>
 </div>
 
+<!-- SETUP OVERLAY -->
+<div id="setupOverlay" class="overlay">
+  <div class="modal warn">
+    <h2 class="warn">⚙️ JSONBin Setup</h2>
+    <p>Connect a JSONBin so the class league table is shared across all devices.</p>
+    <div class="setup-hint">
+      1. Go to <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> and sign up free<br>
+      2. Click <strong>+ Create Bin</strong>, paste in: <code>{"scores":[]}</code> and save<br>
+      3. Copy the <strong>Bin ID</strong> from the URL bar<br>
+      4. Go to <strong>API Keys</strong> and copy your <strong>Master Key</strong>
+    </div>
+    <label class="setup-label">Bin ID</label>
+    <input id="setupBinId" type="text" placeholder="64ab12cd3a3f...">
+    <label class="setup-label">Master API Key (X-Master-Key)</label>
+    <input id="setupApiKey" type="password" placeholder="$2b$10$...">
+    <div class="btn-row">
+      <button id="setupSaveBtn" class="btn-green">✅ Connect</button>
+      <button id="setupSkipBtn" class="btn-outline">Use Local Only</button>
+    </div>
+    <div id="setupMsg" class="modal-msg"></div>
+  </div>
+</div>
+
+<!-- ADMIN OVERLAY -->
+<div id="adminOverlay" class="overlay">
+  <div class="modal warn" style="max-width:520px">
+    <h2 class="warn">🔐 Admin Panel</h2>
+    <div class="btn-row" style="margin-bottom:10px">
+      <button id="adminClearAllBtn" class="btn-danger">🗑️ Clear ALL</button>
+      <button id="adminReconfigBtn" class="btn-outline" style="font-size:0.8rem">⚙️ JSONBin Setup</button>
+      <button id="adminCloseBtn" class="btn-outline">✖ Close</button>
+    </div>
+    <div class="admin-scroll">
+      <table class="admin-table">
+        <thead><tr><th>Player</th><th>Easy</th><th>Med</th><th>Hard</th><th>Pts</th><th></th></tr></thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+    <div id="adminMsg" class="modal-msg"></div>
+  </div>
+</div>
+
+<!-- PIN OVERLAY -->
+<div id="pinOverlay" class="overlay">
+  <div class="modal warn" style="max-width:300px">
+    <h2 class="warn">🔐 Admin PIN</h2>
+    <input id="pinInput" type="password" maxlength="10" placeholder="Enter PIN">
+    <div class="btn-row">
+      <button id="pinOkBtn" class="btn-green">Unlock</button>
+      <button id="pinCancelBtn" class="btn-outline">Cancel</button>
+    </div>
+    <div id="pinMsg" class="modal-msg"></div>
+  </div>
+</div>
+
+<!-- MAIN GAME -->
 <div class="game-container">
   <div class="game-header">
     <h1>⚡ CS WORDSEARCH ⚡</h1>
     <div class="header-right">
       <div class="level-buttons">
-        <button data-level="easy" class="level-btn active">🌱 EASY</button>
+        <button data-level="easy"   class="level-btn active">🌱 EASY</button>
         <button data-level="medium" class="level-btn">⚙️ MED</button>
-        <button data-level="hard" class="level-btn">🔥 HARD</button>
+        <button data-level="hard"   class="level-btn">🔥 HARD</button>
       </div>
       <div class="timer-panel">⏱️ <span id="timerDisplay">00:00</span></div>
-      <button id="soundToggleBtn" class="sound-btn" title="Toggle sound">🔊</button>
-      <button id="pinResetGameBtn" class="reset-pin-btn">🔐 RESET</button>
+      <button id="soundToggleBtn" class="icon-btn">🔊</button>
+      <button id="adminPinBtn"    class="icon-btn">🔐</button>
     </div>
   </div>
 
   <div class="game-layout">
-    <!-- Board -->
     <div class="board-section">
-      <div id="gridContainer" style="overflow-x:auto; display:flex; justify-content:center;"></div>
-      <div class="status-text" id="gameStatusMsg">✨ Tap first letter, then last letter of a word ✨</div>
+      <div id="gridContainer" style="overflow-x:auto;display:flex;justify-content:center"></div>
+      <div class="status-text" id="gameStatusMsg">✨ Tap first letter, then last letter ✨</div>
       <button id="clearSelectionBtn" class="small-btn">🗑️ Clear selection</button>
     </div>
 
-    <!-- Word Bank -->
     <div class="side-panel">
       <h3>📚 WORD BANK</h3>
-      <div id="wordListContainer" class="word-list">Loading...</div>
-      <div id="progressInfo" style="margin-top:10px; text-align:center; font-weight:bold; color:#2ecc71;">🎯 0 / 0</div>
+      <div id="wordListContainer" class="word-list">Loading…</div>
+      <div id="progressInfo" style="margin-top:10px;text-align:center;font-weight:bold;color:#2ecc71">🎯 0 / 0</div>
     </div>
 
-    <!-- Leaderboard -->
-    <div class="leaderboard-area">
-      <h3>🏆 LEADERBOARD</h3>
-      <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
-        <select id="lbLevelSelect" style="background:#1f3e48; color:white; border-radius:20px; padding:4px 8px; border:none; font-size:0.85rem;">
-          <option value="easy">EASY</option>
-          <option value="medium">MEDIUM</option>
-          <option value="hard">HARD</option>
-        </select>
-        <button id="resetLeaderboardPinBtn" style="background:#b34e4e; border:none; border-radius:20px; padding:4px 10px; color:white; font-size:0.8rem; cursor:pointer; touch-action:manipulation;">🔐 Reset</button>
+    <div class="league-area">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+        <h3 style="margin:0">🏅 LEAGUE TABLE</h3>
+        <button id="refreshLeagueBtn" class="icon-btn" style="font-size:0.8rem;padding:4px 10px">🔄 Sync</button>
       </div>
-      <div id="leaderboardTable">-- no scores --</div>
-      <div style="margin-top:8px; font-size:10px; text-align:center; color:#6a9aaa;">✔️ Find all words to save your time!</div>
+      <div class="league-tabs">
+        <button class="tab-btn active" data-tab="overall">Overall</button>
+        <button class="tab-btn" data-tab="easy">Easy</button>
+        <button class="tab-btn" data-tab="medium">Medium</button>
+        <button class="tab-btn" data-tab="hard">Hard</button>
+      </div>
+      <div id="leagueTableContainer"><div style="color:#5a8a9a;text-align:center;padding:12px;font-size:0.85rem">Loading…</div></div>
+      <div id="syncStatus" class="sync-status">—</div>
     </div>
   </div>
 </div>
 
 <script>
-// =================== CONFIG ===================
-const ADMIN_PIN = "1234";
+// ── CONFIG ──────────────────────────────────────────────────────
+const ADMIN_PIN    = "1984";
+const LEVEL_POINTS = { easy: 10, medium: 20, hard: 35 };
+const JSONBIN_BASE = "https://api.jsonbin.io/v3/b";
 
 const WORD_POOL = {
   easy:   ["ARRAY","STACK","QUEUE","LOOP","CLASS","BYTE","CACHE","DATA","CODE","INPUT",
@@ -315,7 +320,7 @@ const WORD_POOL = {
            "DISK","CHIP","BOOT","PORT","USER","LINK","TEXT","GRID","SCAN","COPY"],
   medium: ["FUNCTION","VARIABLE","COMPILER","ITERATION","POINTER","RECURSION","BINARY","OBJECT","STRING","OUTPUT",
            "BOOLEAN","INTEGER","NETWORK","BROWSER","KEYBOARD","REGISTER","HARDWARE","PROTOCOL","COMMAND","PROCESS",
-           "FIREWALL","STORAGE","PROGRAM","RUNTIME","TERMINAL","LIBRARY","PACKAGE","MACHINE","BOOLEAN","PIPELINE"],
+           "FIREWALL","STORAGE","PROGRAM","RUNTIME","TERMINAL","LIBRARY","PACKAGE","MACHINE","PIPELINE","SEQUENCE"],
   hard:   ["ALGORITHM","DATABASE","PROGRAMMING","SOFTWARE","OPERATING","THREADING","RECURSION","COMPILER","ABSTRACT","INTERFACE",
            "ENCRYPTION","INHERITANCE","POLYMORPHISM","BANDWIDTH","SUBROUTINE","PSEUDOCODE","REPOSITORY","FRAMEWORK","HEXADECIMAL","DECOMPOSITION",
            "CONDITIONAL","ARITHMETIC","ALLOCATION","INTERPRETER","ABSTRACTION","STYLESHEET","EXECUTABLE","VALIDATION","DECLARATION","COMPRESSION"]
@@ -326,492 +331,513 @@ const DIFFICULTY = {
   hard:   { rows: 12, cols: 12, wordCount: 8 }
 };
 
-// =================== SOUND ENGINE ===================
-let audioCtx = null;
-let soundEnabled = true;
+// ── JSONBIN ─────────────────────────────────────────────────────
+let BIN_ID  = localStorage.getItem("ws_bin_id")  || "";
+let API_KEY = localStorage.getItem("ws_api_key") || "";
+let useCloud = !!(BIN_ID && API_KEY);
 
-function getAudioCtx() {
+function setSyncStatus(type, msg) {
+  const el = document.getElementById("syncStatus");
+  el.textContent = msg; el.className = "sync-status " + type;
+}
+
+async function cloudRead() {
+  if (!useCloud) return null;
+  setSyncStatus("busy", "Syncing…");
+  try {
+    const r = await fetch(`${JSONBIN_BASE}/${BIN_ID}/latest`, {
+      headers: { "X-Master-Key": API_KEY, "X-Bin-Meta": "false" }
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const data = await r.json();
+    setSyncStatus("ok", "Synced ✓  " + new Date().toLocaleTimeString());
+    return data;
+  } catch(e) {
+    setSyncStatus("err", "Sync failed — " + e.message);
+    return null;
+  }
+}
+
+async function cloudWrite(payload) {
+  if (!useCloud) return;
+  setSyncStatus("busy", "Saving…");
+  try {
+    const r = await fetch(`${JSONBIN_BASE}/${BIN_ID}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "X-Master-Key": API_KEY },
+      body: JSON.stringify(payload)
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    setSyncStatus("ok", "Saved ✓  " + new Date().toLocaleTimeString());
+  } catch(e) {
+    setSyncStatus("err", "Save failed — " + e.message);
+  }
+}
+
+// ── SCORE DATA LAYER ────────────────────────────────────────────
+// Each entry: { name, level, timeSec, pts, date }
+let scores = [];
+
+async function loadScores() {
+  if (useCloud) {
+    const data = await cloudRead();
+    if (data && Array.isArray(data.scores)) { scores = data.scores; renderLeague(); return; }
+  }
+  scores = JSON.parse(localStorage.getItem("ws_scores") || "[]");
+  renderLeague();
+}
+
+function saveLocal() { localStorage.setItem("ws_scores", JSON.stringify(scores)); }
+
+async function addScore(name, level, timeSec) {
+  name = (name || "ANON").trim().toUpperCase().slice(0, 20);
+  const pts = calcPts(level, timeSec);
+  scores.push({ name, level, timeSec, pts, date: new Date().toLocaleDateString("en-GB") });
+  saveLocal();
+  renderLeague();
+  await cloudWrite({ scores });
+}
+
+function calcPts(level, timeSec) {
+  return LEVEL_POINTS[level] + Math.max(0, Math.floor((180 - timeSec) / 10));
+}
+
+async function clearAllScores() {
+  scores = []; saveLocal(); renderLeague(); await cloudWrite({ scores });
+}
+
+async function deletePlayer(name) {
+  scores = scores.filter(s => s.name !== name);
+  saveLocal(); renderLeague(); await cloudWrite({ scores });
+}
+
+// ── LEAGUE RENDERING ────────────────────────────────────────────
+let currentTab = "overall";
+
+function buildStats() {
+  const map = {};
+  scores.forEach(s => {
+    if (!map[s.name]) map[s.name] = { name:s.name, pts:0, games:0, easy:null, medium:null, hard:null };
+    const p = map[s.name];
+    p.pts += s.pts; p.games++;
+    if (p[s.level] === null || s.timeSec < p[s.level]) p[s.level] = s.timeSec;
+  });
+  return Object.values(map);
+}
+
+function ft(sec) {
+  if (sec == null) return "—";
+  return String(Math.floor(sec/60)).padStart(2,"0") + ":" + String(sec%60).padStart(2,"0");
+}
+
+function rankMedal(i) { return ["🥇","🥈","🥉"][i] || (i+1); }
+function rankCls(i)   { return ["rank-gold","rank-silver","rank-bronze"][i] || ""; }
+
+function renderLeague() {
+  const el = document.getElementById("leagueTableContainer");
+  const players = buildStats();
+
+  if (!players.length) {
+    el.innerHTML = '<div style="color:#5a8a9a;text-align:center;padding:14px;font-size:0.84rem">No scores yet — play to get on the board! 🎮</div>';
+    return;
+  }
+
+  if (currentTab === "overall") {
+    const sorted = [...players].sort((a,b) => b.pts - a.pts);
+    let h = `<table class="league-table"><tr><th>#</th><th>Player</th><th>Pts</th><th>Easy</th><th>Med</th><th>Hard</th><th>⚡</th></tr>`;
+    sorted.forEach((p,i) => {
+      h += `<tr>
+        <td class="${rankCls(i)}">${rankMedal(i)}</td>
+        <td style="font-weight:bold;max-width:90px;overflow:hidden;text-overflow:ellipsis">${p.name}</td>
+        <td><span class="pts-badge">${p.pts}</span></td>
+        <td>${ft(p.easy)}</td><td>${ft(p.medium)}</td><td>${ft(p.hard)}</td>
+        <td style="color:#7ac8e0">${p.games}</td></tr>`;
+    });
+    el.innerHTML = h + "</table>";
+  } else {
+    const best = {};
+    scores.filter(s => s.level === currentTab).forEach(s => {
+      if (!best[s.name] || s.timeSec < best[s.name].timeSec) best[s.name] = s;
+    });
+    const sorted = Object.values(best).sort((a,b) => a.timeSec - b.timeSec);
+    if (!sorted.length) {
+      el.innerHTML = `<div style="color:#5a8a9a;text-align:center;padding:14px;font-size:0.84rem">No ${currentTab} scores yet!</div>`;
+      return;
+    }
+    let h = `<table class="league-table"><tr><th>#</th><th>Player</th><th>Best</th><th>Pts</th><th>Date</th></tr>`;
+    sorted.forEach((s,i) => {
+      h += `<tr>
+        <td class="${rankCls(i)}">${rankMedal(i)}</td>
+        <td style="font-weight:bold">${s.name}</td>
+        <td style="color:#f1c40f;font-family:monospace">${ft(s.timeSec)}</td>
+        <td><span class="pts-badge">${s.pts}</span></td>
+        <td style="color:#7ac8e0">${s.date}</td></tr>`;
+    });
+    el.innerHTML = h + "</table>";
+  }
+}
+
+// ── SOUND ────────────────────────────────────────────────────────
+let audioCtx = null, soundEnabled = true;
+function getCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
-
-function playTone(freq, type, duration, vol = 0.3, delay = 0) {
+function tone(freq,type,dur,vol,delay) {
   if (!soundEnabled) return;
   try {
-    const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
-    gain.gain.setValueAtTime(vol, ctx.currentTime + delay);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
-    osc.start(ctx.currentTime + delay);
-    osc.stop(ctx.currentTime + delay + duration + 0.05);
-  } catch(e) {}
+    const c=getCtx(),o=c.createOscillator(),g=c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.type=type; o.frequency.setValueAtTime(freq,c.currentTime+delay);
+    g.gain.setValueAtTime(vol,c.currentTime+delay);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+delay+dur);
+    o.start(c.currentTime+delay); o.stop(c.currentTime+delay+dur+0.05);
+  } catch(e){}
+}
+const soundTick  = ()=>tone(880,"sine",0.04,0.08,0);
+const soundFound = ()=>{ tone(523,"sine",0.12,0.25,0); tone(659,"sine",0.12,0.25,0.1); tone(784,"sine",0.18,0.3,0.2); };
+const soundError = ()=>{ tone(200,"sawtooth",0.15,0.2,0); tone(150,"sawtooth",0.12,0.2,0.1); };
+const soundWin   = ()=>{ [523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,"sine",0.18,0.3,i*0.12)); };
+
+// ── TIMER ────────────────────────────────────────────────────────
+let timerSec=0, timerInt=null;
+function startTimer(){ stopTimer(); timerInt=setInterval(()=>{ if(!gameDone&&gameActive){ timerSec++; displayTimer(); } },1000); }
+function stopTimer() { clearInterval(timerInt); timerInt=null; }
+function displayTimer(){
+  document.getElementById("timerDisplay").textContent =
+    String(Math.floor(timerSec/60)).padStart(2,"0")+":"+String(timerSec%60).padStart(2,"0");
+}
+function fmtTime(s){ return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+
+// ── GAME STATE ───────────────────────────────────────────────────
+let level="easy", grid=[], rows, cols;
+let words=[], gameActive=false, gameDone=false, selCell=null;
+let used={ easy:new Set(), medium:new Set(), hard:new Set() };
+
+function calcCellSize(){
+  const vw=window.innerWidth;
+  const avail=vw<700?vw-48:Math.min(vw*0.5,620);
+  return Math.max(26,Math.min(Math.floor((avail-40-4*(cols-1))/cols),56));
 }
 
-function soundFoundWord() {
-  // happy arpeggio
-  playTone(523, 'sine', 0.12, 0.25, 0);
-  playTone(659, 'sine', 0.12, 0.25, 0.1);
-  playTone(784, 'sine', 0.18, 0.3,  0.2);
-}
-
-function soundError() {
-  playTone(200, 'sawtooth', 0.15, 0.2, 0);
-  playTone(150, 'sawtooth', 0.12, 0.2, 0.1);
-}
-
-function soundWin() {
-  const notes = [523,659,784,1047,784,1047,1319];
-  notes.forEach((f,i) => playTone(f, 'sine', 0.18, 0.3, i * 0.12));
-}
-
-function soundTick() {
-  playTone(880, 'sine', 0.04, 0.1, 0);
-}
-
-// =================== LEADERBOARD ===================
-let leaderboard = { easy:[], medium:[], hard:[] };
-
-function loadLeaderboard() {
-  try {
-    const s = localStorage.getItem("cs_wordsearch_lb2");
-    if (s) {
-      leaderboard = JSON.parse(s);
-      ["easy","medium","hard"].forEach(k => { if(!leaderboard[k]) leaderboard[k]=[]; });
-    }
-  } catch(e) {}
-  renderLeaderboard();
-}
-
-function saveLeaderboard() {
-  localStorage.setItem("cs_wordsearch_lb2", JSON.stringify(leaderboard));
-  renderLeaderboard();
-}
-
-function addScore(level, name, timeSec) {
-  if (!name || !name.trim()) name = "ANON";
-  leaderboard[level].push({ name: name.toUpperCase().slice(0,10), time: timeSec, date: new Date().toLocaleDateString() });
-  leaderboard[level].sort((a,b) => a.time - b.time);
-  leaderboard[level] = leaderboard[level].slice(0,6);
-  saveLeaderboard();
-}
-
-function renderLeaderboard() {
-  const level = document.getElementById("lbLevelSelect").value;
-  const scores = leaderboard[level] || [];
-  const div = document.getElementById("leaderboardTable");
-  if (!scores.length) { div.innerHTML = '<div style="padding:8px;text-align:center;color:#6a9aaa;">No records yet</div>'; return; }
-  let html = '<table><tr><th>#</th><th>Player</th><th>Time</th><th>Date</th></tr>';
-  scores.forEach((sc,i) => {
-    const m = Math.floor(sc.time/60), s = sc.time%60;
-    html += `<tr><td>${i+1}</td><td>${sc.name}</td><td>${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}</td><td>${sc.date}</td></tr>`;
-  });
-  html += '</table>';
-  div.innerHTML = html;
-}
-
-// =================== GAME STATE ===================
-let currentLevel = "easy";
-let grid = [];
-let rows, cols;
-let currentWords = [];
-let gameActive = false;
-let timerSeconds = 0;
-let timerInterval = null;
-let gameCompletedFlag = false;
-let firstSelectedCell = null;
-let usedWords = { easy: new Set(), medium: new Set(), hard: new Set() };
-
-// =================== TIMER ===================
-function startTimer() {
-  stopTimer();
-  timerInterval = setInterval(() => {
-    if (!gameCompletedFlag && gameActive) {
-      timerSeconds++;
-      updateTimerDisplay();
-    }
-  }, 1000);
-}
-function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
-function updateTimerDisplay() {
-  const m = Math.floor(timerSeconds/60), s = timerSeconds%60;
-  document.getElementById("timerDisplay").textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
-
-// =================== GRID RENDERING ===================
-function calcCellSize() {
-  const vw = window.innerWidth;
-  // Available width for the board (roughly 65% on desktop, 95% on mobile)
-  const available = vw < 700 ? vw - 48 : Math.min(vw * 0.55, 700);
-  const gap = 4;
-  const padding = 20;
-  const cellPx = Math.floor((available - padding * 2 - gap * (cols - 1)) / cols);
-  return Math.max(28, Math.min(cellPx, 56));
-}
-
-function renderGrid() {
-  if (!grid.length) return;
-  const container = document.getElementById("gridContainer");
-  container.innerHTML = "";
-
-  const cellSize = calcCellSize();
-  const fontSize = Math.max(11, Math.floor(cellSize * 0.45));
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "wordsearch-grid";
-  wrapper.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
-  wrapper.style.setProperty('--cell-size', cellSize + 'px');
-  wrapper.style.setProperty('--cell-font', fontSize + 'px');
-
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      const cell = document.createElement("div");
-      cell.className = "grid-cell";
-      cell.style.width = cellSize + 'px';
-      cell.style.height = cellSize + 'px';
-      cell.style.fontSize = fontSize + 'px';
-      cell.style.borderRadius = Math.max(6, cellSize * 0.22) + 'px';
-      cell.textContent = grid[i][j];
-      cell.dataset.row = i;
-      cell.dataset.col = j;
-
-      // Found?
-      for (const w of currentWords) {
-        if (w.found && w.posSet && w.posSet.has(`${i},${j}`)) {
-          cell.classList.add("found");
-          break;
-        }
-      }
-      // Selected?
-      if (firstSelectedCell && firstSelectedCell.row === i && firstSelectedCell.col === j) {
-        cell.classList.add("selected");
-      }
-
-      cell.addEventListener("click", () => onCellClick(i, j));
-      // Touch support
-      cell.addEventListener("touchend", (e) => { e.preventDefault(); onCellClick(i, j); }, { passive: false });
-
-      wrapper.appendChild(cell);
+function renderGrid(){
+  if(!grid.length) return;
+  const wrap=document.getElementById("gridContainer");
+  wrap.innerHTML="";
+  const cs=calcCellSize(), fs=Math.max(10,Math.floor(cs*0.44));
+  const g=document.createElement("div");
+  g.className="wordsearch-grid";
+  g.style.gridTemplateColumns=`repeat(${cols},${cs}px)`;
+  for(let i=0;i<rows;i++){
+    for(let j=0;j<cols;j++){
+      const c=document.createElement("div");
+      c.className="grid-cell";
+      c.style.cssText=`width:${cs}px;height:${cs}px;font-size:${fs}px;border-radius:${Math.max(6,cs*.22)}px`;
+      c.textContent=grid[i][j];
+      for(const w of words) if(w.found&&w.pos&&w.pos.has(i+","+j)){c.classList.add("found");break;}
+      if(selCell&&selCell.r===i&&selCell.c===j) c.classList.add("selected");
+      c.addEventListener("click",()=>cellClick(i,j));
+      c.addEventListener("touchend",e=>{e.preventDefault();cellClick(i,j);},{passive:false});
+      g.appendChild(c);
     }
   }
-  container.appendChild(wrapper);
+  wrap.appendChild(g);
 }
 
-// =================== WORD BANK UI ===================
-function updateWordBankUI() {
-  const div = document.getElementById("wordListContainer");
-  div.innerHTML = "";
-  let found = 0;
-  currentWords.forEach(w => {
-    if (w.found) found++;
-    const el = document.createElement("div");
-    el.className = "word-item" + (w.found ? " found-word" : "");
-    el.textContent = w.text;
-    div.appendChild(el);
+function updateBank(){
+  const div=document.getElementById("wordListContainer");
+  div.innerHTML=""; let found=0;
+  words.forEach(w=>{
+    if(w.found) found++;
+    const el=document.createElement("div");
+    el.className="word-item"+(w.found?" found-word":"");
+    el.textContent=w.text; div.appendChild(el);
   });
-  document.getElementById("progressInfo").textContent = `🎯 ${found} / ${currentWords.length}`;
-
-  if (found === currentWords.length && !gameCompletedFlag && currentWords.length > 0) {
-    gameCompletedFlag = true;
-    gameActive = false;
-    stopTimer();
-    soundWin();
-    launchConfetti();
-    const finalTime = timerSeconds;
-    document.getElementById("gameStatusMsg").textContent = "🎉 ALL FOUND! Amazing!";
-    setTimeout(() => showWinOverlay(finalTime), 700);
+  document.getElementById("progressInfo").textContent=`🎯 ${found} / ${words.length}`;
+  if(found===words.length&&!gameDone&&words.length>0){
+    gameDone=true; gameActive=false; stopTimer();
+    soundWin(); launchConfetti();
+    document.getElementById("gameStatusMsg").textContent="🎉 ALL FOUND!";
+    setTimeout(()=>showWin(timerSec),700);
   }
 }
 
-function formatTime(sec) {
-  return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;
-}
-
-// =================== WIN OVERLAY ===================
-let _winFinalTime = 0;
-
-function showWinOverlay(finalTime) {
-  _winFinalTime = finalTime;
-  document.getElementById("winTimeDisplay").textContent = "⏱ " + formatTime(finalTime);
-  document.getElementById("winNameInput").value = "";
-  document.getElementById("winSavedMsg").textContent = "";
-  const saveBtn = document.getElementById("winSaveBtn");
-  saveBtn.disabled = false;
-  saveBtn.style.opacity = "1";
-  const overlay = document.getElementById("winOverlay");
-  overlay.style.display = "flex";
-  setTimeout(() => document.getElementById("winNameInput").focus(), 100);
-}
-
-function hideWinOverlay() {
-  document.getElementById("winOverlay").style.display = "none";
-}
-
-document.getElementById("winSaveBtn").addEventListener("click", () => {
-  const name = document.getElementById("winNameInput").value.trim() || "ANON";
-  addScore(currentLevel, name, _winFinalTime);
-  document.getElementById("winSavedMsg").textContent = "✅ Score saved to leaderboard!";
-  document.getElementById("winSaveBtn").disabled = true;
-  document.getElementById("winSaveBtn").style.opacity = "0.5";
-});
-
-document.getElementById("winPlayAgainBtn").addEventListener("click", () => {
-  hideWinOverlay();
-  startGame(currentLevel);
-});
-
-// =================== CELL CLICK / WORD CHECK ===================
-function onCellClick(row, col) {
-  if (gameCompletedFlag || !gameActive) return;
-
-  // resume audio context on first interaction (mobile requirement)
-  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-
+function cellClick(r,c){
+  if(gameDone||!gameActive) return;
+  if(audioCtx&&audioCtx.state==="suspended") audioCtx.resume();
   soundTick();
-
-  if (!firstSelectedCell) {
-    firstSelectedCell = { row, col };
-    renderGrid();
-    document.getElementById("gameStatusMsg").textContent = "🔍 Now tap the LAST letter...";
-  } else {
-    const start = firstSelectedCell;
-    const end = { row, col };
-    if (start.row === end.row && start.col === end.col) {
-      clearSelection();
-      return;
-    }
-    const result = trySelectWord(start, end);
-    if (!result) {
+  if(!selCell){ selCell={r,c}; renderGrid(); document.getElementById("gameStatusMsg").textContent="🔍 Now tap the LAST letter…"; }
+  else{
+    const s=selCell, e={r,c};
+    if(s.r===e.r&&s.c===e.c){clearSel();return;}
+    if(!tryWord(s,e)){
       soundError();
-      document.getElementById("gameStatusMsg").textContent = "❌ Not a word — try again!";
-      clearSelection();
+      document.getElementById("gameStatusMsg").textContent="❌ Not a word — try again!";
+      clearSel();
     }
   }
 }
 
-function clearSelection() {
-  firstSelectedCell = null;
-  renderGrid();
-  if (!gameCompletedFlag) document.getElementById("gameStatusMsg").textContent = "✨ Tap first letter, then last letter ✨";
+function clearSel(){
+  selCell=null; renderGrid();
+  if(!gameDone) document.getElementById("gameStatusMsg").textContent="✨ Tap first letter, then last letter ✨";
 }
 
-function trySelectWord(start, end) {
-  const dr = Math.sign(end.row - start.row);
-  const dc = Math.sign(end.col - start.col);
-  if (dr === 0 && dc === 0) return false;
-  if (dr !== 0 && dc !== 0 && Math.abs(end.row - start.row) !== Math.abs(end.col - start.col)) return false;
-
-  const steps = Math.max(Math.abs(end.row - start.row), Math.abs(end.col - start.col));
-  const letters = [], positions = [];
-  for (let s = 0; s <= steps; s++) {
-    const r = start.row + dr * s, c = start.col + dc * s;
-    if (r < 0 || r >= rows || c < 0 || c >= cols) return false;
-    letters.push(grid[r][c]);
-    positions.push({ row: r, col: c });
+function tryWord(s,e){
+  const dr=Math.sign(e.r-s.r), dc=Math.sign(e.c-s.c);
+  if(dr===0&&dc===0) return false;
+  if(dr!==0&&dc!==0&&Math.abs(e.r-s.r)!==Math.abs(e.c-s.c)) return false;
+  const steps=Math.max(Math.abs(e.r-s.r),Math.abs(e.c-s.c));
+  const ltrs=[], pos=[];
+  for(let k=0;k<=steps;k++){
+    const r=s.r+dr*k, c=s.c+dc*k;
+    if(r<0||r>=rows||c<0||c>=cols) return false;
+    ltrs.push(grid[r][c]); pos.push({r,c});
   }
-
-  const word = letters.join('');
-  const rev  = [...letters].reverse().join('');
-
-  const hit = currentWords.find(w => !w.found && (w.text === word || w.text === rev));
-  if (hit) {
-    hit.found = true;
-    hit.posSet = new Set(positions.map(p => `${p.row},${p.col}`));
-    soundFoundWord();
-    clearSelection();
-    updateWordBankUI();
-    renderGrid();
-    document.getElementById("gameStatusMsg").textContent = `✔️ "${hit.text}" found!`;
+  const word=ltrs.join(""), rev=[...ltrs].reverse().join("");
+  const hit=words.find(w=>!w.found&&(w.text===word||w.text===rev));
+  if(hit){
+    hit.found=true; hit.pos=new Set(pos.map(p=>p.r+","+p.c));
+    soundFound(); clearSel(); updateBank(); renderGrid();
+    document.getElementById("gameStatusMsg").textContent=`✔️ "${hit.text}" found!`;
     return true;
   }
   return false;
 }
 
-// =================== BOARD GENERATION ===================
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
+// Board generation
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a; }
 
-function canPlace(board, word, r, c, dr, dc) {
-  for (let i = 0; i < word.length; i++) {
-    const nr = r + dr * i, nc = c + dc * i;
-    if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) return false;
-    if (board[nr][nc] !== null && board[nr][nc] !== word[i]) return false;
-  }
-  return true;
-}
-
-function placeWord(board, word, r, c, dr, dc) {
-  const pos = [];
-  for (let i = 0; i < word.length; i++) {
-    board[r + dr * i][c + dc * i] = word[i];
-    pos.push({ row: r + dr * i, col: c + dc * i });
-  }
-  return pos;
-}
-
-function generateBoard(wordList) {
-  const DIRS = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
-  const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  for (let attempt = 0; attempt < 40; attempt++) {
-    const board = Array.from({ length: rows }, () => Array(cols).fill(null));
-    let allPlaced = true;
-
-    for (const word of shuffle([...wordList])) {
-      let placed = false;
-      for (let t = 0; t < 600 && !placed; t++) {
-        const [dr, dc] = DIRS[Math.floor(Math.random() * DIRS.length)];
-        const r = Math.floor(Math.random() * rows);
-        const c = Math.floor(Math.random() * cols);
-        if (canPlace(board, word, r, c, dr, dc)) {
-          placeWord(board, word, r, c, dr, dc);
-          placed = true;
+function generateBoard(wl){
+  const DIRS=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  const ABC="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for(let att=0;att<40;att++){
+    const b=Array.from({length:rows},()=>Array(cols).fill(null));
+    let ok=true;
+    for(const w of shuffle([...wl])){
+      let placed=false;
+      for(let t=0;t<600&&!placed;t++){
+        const [dr,dc]=DIRS[Math.floor(Math.random()*DIRS.length)];
+        const r=Math.floor(Math.random()*rows), c=Math.floor(Math.random()*cols);
+        let can=true;
+        for(let i=0;i<w.length;i++){
+          const nr=r+dr*i, nc=c+dc*i;
+          if(nr<0||nr>=rows||nc<0||nc>=cols||( b[nr][nc]!==null&&b[nr][nc]!==w[i])){can=false;break;}
         }
+        if(can){ for(let i=0;i<w.length;i++) b[r+dr*i][c+dc*i]=w[i]; placed=true; }
       }
-      if (!placed) { allPlaced = false; break; }
+      if(!placed){ok=false;break;}
     }
-
-    if (allPlaced) {
-      // fill nulls
-      for (let i = 0; i < rows; i++)
-        for (let j = 0; j < cols; j++)
-          if (board[i][j] === null) board[i][j] = ALPHABET[Math.floor(Math.random() * 26)];
-      return board;
+    if(ok){
+      for(let i=0;i<rows;i++) for(let j=0;j<cols;j++) if(!b[i][j]) b[i][j]=ABC[Math.floor(Math.random()*26)];
+      return b;
     }
   }
   return null;
 }
 
-// =================== NEW GAME ===================
-function startGame(level) {
-  currentLevel = level;
-  const cfg = DIFFICULTY[level];
-  rows = cfg.rows;
-  cols = cfg.cols;
-
-  const pool = WORD_POOL[level];
-  // Pick from unused words; reset if pool exhausted
-  let available = pool.filter(w => !usedWords[level].has(w));
-  if (available.length < cfg.wordCount) {
-    usedWords[level].clear();
-    available = [...pool];
-  }
-  const chosen = shuffle([...available]).slice(0, cfg.wordCount);
-  chosen.forEach(w => usedWords[level].add(w));
-
-  const board = generateBoard(chosen);
-  if (!board) { alert("Board generation failed — try again!"); return; }
-
-  grid = board;
-  currentWords = chosen.map(t => ({ text: t, found: false, posSet: null }));
-  gameCompletedFlag = false;
-  gameActive = true;
-  firstSelectedCell = null;
-  timerSeconds = 0;
-  updateTimerDisplay();
-  startTimer();
-
-  renderGrid();
-  updateWordBankUI();
-  document.getElementById("gameStatusMsg").textContent = "✨ Tap first letter, then last letter ✨";
+function startGame(lv){
+  level=lv;
+  const cfg=DIFFICULTY[lv]; rows=cfg.rows; cols=cfg.cols;
+  const pool=WORD_POOL[lv];
+  let avail=pool.filter(w=>!used[lv].has(w));
+  if(avail.length<cfg.wordCount){used[lv].clear(); avail=[...pool];}
+  const chosen=shuffle([...avail]).slice(0,cfg.wordCount);
+  chosen.forEach(w=>used[lv].add(w));
+  const board=generateBoard(chosen);
+  if(!board){alert("Board failed — try again!"); return;}
+  grid=board; words=chosen.map(t=>({text:t,found:false,pos:null}));
+  gameDone=false; gameActive=true; selCell=null;
+  timerSec=0; displayTimer(); startTimer();
+  renderGrid(); updateBank();
+  document.getElementById("gameStatusMsg").textContent="✨ Tap first letter, then last letter ✨";
 }
 
-// =================== CONFETTI ===================
-function launchConfetti() {
-  const canvas = document.getElementById("confettiCanvas");
-  canvas.style.display = "block";
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+// ── WIN OVERLAY ──────────────────────────────────────────────────
+let _winT=0;
+function showWin(t){
+  _winT=t;
+  document.getElementById("winTimeDisplay").textContent="⏱ "+fmtTime(t);
+  const pts=calcPts(level,t);
+  document.getElementById("winMsg").textContent=`+${pts} pts  (${level})`;
+  document.getElementById("winMsg").className="modal-msg";
+  document.getElementById("winNameInput").value="";
+  const b=document.getElementById("winSaveBtn"); b.disabled=false; b.style.opacity="1";
+  showOverlay("winOverlay");
+  setTimeout(()=>document.getElementById("winNameInput").focus(),150);
+}
+document.getElementById("winSaveBtn").addEventListener("click",async()=>{
+  const name=document.getElementById("winNameInput").value.trim();
+  if(!name){
+    document.getElementById("winMsg").textContent="Please enter your name!";
+    document.getElementById("winMsg").className="modal-msg err"; return;
+  }
+  const b=document.getElementById("winSaveBtn"); b.disabled=true; b.style.opacity="0.5";
+  await addScore(name,level,_winT);
+  document.getElementById("winMsg").textContent="✅ Saved to league!";
+  document.getElementById("winMsg").className="modal-msg";
+});
+document.getElementById("winPlayAgainBtn").addEventListener("click",()=>{
+  hideOverlay("winOverlay"); startGame(level);
+});
 
-  const pieces = Array.from({length:120}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * -canvas.height,
-    w: Math.random() * 10 + 5,
-    h: Math.random() * 6 + 3,
-    color: `hsl(${Math.random()*360},80%,60%)`,
-    vx: (Math.random()-0.5) * 3,
-    vy: Math.random() * 4 + 2,
-    angle: Math.random() * Math.PI * 2,
-    spin: (Math.random()-0.5) * 0.2
+// ── CONFETTI ─────────────────────────────────────────────────────
+function launchConfetti(){
+  const cv=document.getElementById("confettiCanvas");
+  cv.style.display="block";
+  const cx=cv.getContext("2d");
+  cv.width=innerWidth; cv.height=innerHeight;
+  const p=Array.from({length:120},()=>({
+    x:Math.random()*cv.width, y:Math.random()*-cv.height,
+    w:Math.random()*10+5, h:Math.random()*6+3,
+    color:`hsl(${Math.random()*360},80%,60%)`,
+    vx:(Math.random()-.5)*3, vy:Math.random()*4+2,
+    a:Math.random()*Math.PI*2, sp:(Math.random()-.5)*.2
   }));
-
-  let frames = 0;
-  function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p => {
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.angle);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
-      ctx.restore();
-      p.x += p.vx; p.y += p.vy; p.angle += p.spin;
+  let f=0;
+  (function draw(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    p.forEach(q=>{
+      cx.save(); cx.translate(q.x,q.y); cx.rotate(q.a);
+      cx.fillStyle=q.color; cx.fillRect(-q.w/2,-q.h/2,q.w,q.h); cx.restore();
+      q.x+=q.vx; q.y+=q.vy; q.a+=q.sp;
     });
-    frames++;
-    if (frames < 180) requestAnimationFrame(draw);
-    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display="none"; }
+    if(++f<180) requestAnimationFrame(draw);
+    else{cx.clearRect(0,0,cv.width,cv.height); cv.style.display="none";}
+  })();
+}
+
+// ── OVERLAY HELPERS ──────────────────────────────────────────────
+function showOverlay(id){ document.getElementById(id).classList.add("show"); }
+function hideOverlay(id){ document.getElementById(id).classList.remove("show"); }
+
+// PIN
+let _pinCb=null;
+function promptPin(cb){
+  _pinCb=cb;
+  document.getElementById("pinInput").value="";
+  document.getElementById("pinMsg").textContent="";
+  showOverlay("pinOverlay");
+  setTimeout(()=>document.getElementById("pinInput").focus(),150);
+}
+document.getElementById("pinOkBtn").addEventListener("click",()=>{
+  if(document.getElementById("pinInput").value===ADMIN_PIN){
+    hideOverlay("pinOverlay"); if(_pinCb) _pinCb();
+  } else {
+    document.getElementById("pinMsg").textContent="❌ Wrong PIN";
+    document.getElementById("pinMsg").className="modal-msg err";
   }
-  draw();
+});
+document.getElementById("pinCancelBtn").addEventListener("click",()=>hideOverlay("pinOverlay"));
+document.getElementById("pinInput").addEventListener("keydown",e=>{if(e.key==="Enter") document.getElementById("pinOkBtn").click();});
+
+// Setup
+function showSetup(){
+  document.getElementById("setupBinId").value=BIN_ID;
+  document.getElementById("setupApiKey").value="";
+  document.getElementById("setupMsg").textContent=useCloud?"Currently connected ✓":"Not connected";
+  document.getElementById("setupMsg").className="modal-msg";
+  showOverlay("setupOverlay");
 }
 
-// =================== PIN MODAL ===================
-function promptPin(onSuccess) {
-  const pin = prompt("Enter admin PIN:");
-  if (pin === ADMIN_PIN) onSuccess();
-  else if (pin !== null) alert("❌ Wrong PIN.");
+document.getElementById("setupSaveBtn").addEventListener("click",async()=>{
+  const bid=document.getElementById("setupBinId").value.trim();
+  const key=document.getElementById("setupApiKey").value.trim();
+  if(!bid||!key){
+    document.getElementById("setupMsg").textContent="Both fields required.";
+    document.getElementById("setupMsg").className="modal-msg err"; return;
+  }
+  document.getElementById("setupMsg").textContent="Testing…";
+  document.getElementById("setupMsg").className="modal-msg";
+  try{
+    const r=await fetch(`${JSONBIN_BASE}/${bid}/latest`,{headers:{"X-Master-Key":key,"X-Bin-Meta":"false"}});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const data=await r.json();
+    if(!Array.isArray(data.scores)){
+      await fetch(`${JSONBIN_BASE}/${bid}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":key},body:JSON.stringify({scores:[]})});
+    }
+    BIN_ID=bid; API_KEY=key; useCloud=true;
+    localStorage.setItem("ws_bin_id",bid); localStorage.setItem("ws_api_key",key);
+    document.getElementById("setupMsg").textContent="✅ Connected!";
+    document.getElementById("setupMsg").className="modal-msg";
+    setTimeout(()=>{ hideOverlay("setupOverlay"); loadScores(); },900);
+  } catch(e){
+    document.getElementById("setupMsg").textContent="❌ "+e.message;
+    document.getElementById("setupMsg").className="modal-msg err";
+  }
+});
+document.getElementById("setupSkipBtn").addEventListener("click",()=>{ hideOverlay("setupOverlay"); loadScores(); });
+
+// Admin
+function showAdmin(){
+  populateAdminTable();
+  document.getElementById("adminMsg").textContent=useCloud?"☁️ Synced via JSONBin":"💾 Local storage only";
+  document.getElementById("adminMsg").className="modal-msg";
+  showOverlay("adminOverlay");
 }
-
-// =================== INIT ===================
-document.querySelectorAll(".level-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".level-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    startGame(btn.dataset.level);
+function populateAdminTable(){
+  const players=buildStats().sort((a,b)=>b.pts-a.pts);
+  const tbody=document.getElementById("adminTableBody");
+  tbody.innerHTML="";
+  if(!players.length){ tbody.innerHTML='<tr><td colspan="6" style="color:#5a8a9a;text-align:center">No scores</td></tr>'; return; }
+  players.forEach(p=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${p.name}</td><td>${ft(p.easy)}</td><td>${ft(p.medium)}</td><td>${ft(p.hard)}</td><td>${p.pts}</td><td><button class="del-btn" data-name="${p.name}">🗑️</button></td>`;
+    tbody.appendChild(tr);
   });
-  btn.addEventListener("touchend", e => { e.preventDefault(); btn.click(); }, { passive: false });
+  tbody.querySelectorAll(".del-btn").forEach(btn=>{
+    btn.addEventListener("click",async()=>{
+      if(!confirm("Delete all scores for "+btn.dataset.name+"?")) return;
+      await deletePlayer(btn.dataset.name); populateAdminTable();
+      document.getElementById("adminMsg").textContent="Deleted "+btn.dataset.name;
+    });
+  });
+}
+document.getElementById("adminClearAllBtn").addEventListener("click",async()=>{
+  if(!confirm("Clear ALL scores for everyone? Cannot be undone.")) return;
+  await clearAllScores(); populateAdminTable();
+  document.getElementById("adminMsg").textContent="All scores cleared.";
 });
+document.getElementById("adminReconfigBtn").addEventListener("click",()=>{ hideOverlay("adminOverlay"); showSetup(); });
+document.getElementById("adminCloseBtn").addEventListener("click",()=>hideOverlay("adminOverlay"));
+document.getElementById("adminPinBtn").addEventListener("click",()=>promptPin(showAdmin));
 
-document.getElementById("clearSelectionBtn").addEventListener("click", clearSelection);
-document.getElementById("clearSelectionBtn").addEventListener("touchend", e => { e.preventDefault(); clearSelection(); }, { passive: false });
-
-document.getElementById("pinResetGameBtn").addEventListener("click", () => {
-  promptPin(() => startGame(currentLevel));
-});
-
-document.getElementById("lbLevelSelect").addEventListener("change", renderLeaderboard);
-
-document.getElementById("resetLeaderboardPinBtn").addEventListener("click", () => {
-  promptPin(() => {
-    leaderboard[document.getElementById("lbLevelSelect").value] = [];
-    saveLeaderboard();
-    alert("Leaderboard cleared.");
+// League tabs
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active"); currentTab=btn.dataset.tab; renderLeague();
   });
 });
+document.getElementById("refreshLeagueBtn").addEventListener("click",loadScores);
 
-document.getElementById("soundToggleBtn").addEventListener("click", () => {
-  soundEnabled = !soundEnabled;
-  document.getElementById("soundToggleBtn").textContent = soundEnabled ? "🔊" : "🔇";
-  if (soundEnabled && audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+// Level buttons
+document.querySelectorAll(".level-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".level-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active"); startGame(btn.dataset.level);
+  });
+  btn.addEventListener("touchend",e=>{e.preventDefault();btn.click();},{passive:false});
 });
 
-window.addEventListener("resize", () => { if (grid.length) renderGrid(); });
+document.getElementById("clearSelectionBtn").addEventListener("click",clearSel);
+document.getElementById("clearSelectionBtn").addEventListener("touchend",e=>{e.preventDefault();clearSel();},{passive:false});
 
-// Unlock audio context on first touch (iOS requirement)
-document.addEventListener("touchstart", () => {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-}, { once: true });
+document.getElementById("soundToggleBtn").addEventListener("click",()=>{
+  soundEnabled=!soundEnabled;
+  document.getElementById("soundToggleBtn").textContent=soundEnabled?"🔊":"🔇";
+  if(soundEnabled&&audioCtx&&audioCtx.state==="suspended") audioCtx.resume();
+});
 
-loadLeaderboard();
+window.addEventListener("resize",()=>{ if(grid.length) renderGrid(); });
+
+document.addEventListener("touchstart",()=>{
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==="suspended") audioCtx.resume();
+},{once:true});
+
+// ── BOOT ────────────────────────────────────────────────────────
+if(!BIN_ID||!API_KEY){ showOverlay("setupOverlay"); } else { loadScores(); }
 startGame("easy");
 </script>
 </body>
